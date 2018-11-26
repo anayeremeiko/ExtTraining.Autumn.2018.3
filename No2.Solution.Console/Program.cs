@@ -14,10 +14,8 @@ namespace No2.Solution.Console
 
             var bank = new Bank("Bank", stock);
             var broker = new Broker("Broker", stock);
-
-            stock.Register(bank);
-            stock.Register(broker);
-            stock.Market();
+            
+            stock.Start();
 
             System.Console.ReadLine();
         }
