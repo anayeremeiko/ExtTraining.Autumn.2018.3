@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using static No3.Solution.Calculator;
 using NUnit.Framework;
 
 namespace No3.Solution.Tests
@@ -11,11 +12,9 @@ namespace No3.Solution.Tests
         [Test]
         public void Test_AverageByMean()
         {
-            Calculator calculator = new Calculator();
-
             double expected = 8.3636363;
 
-            double actual = calculator.CalculateAverage(values, AveragingMethod.Mean);
+            double actual = values.CalculateMeanAverage();
 
             Assert.AreEqual(expected, actual, 0.000001);
         }
@@ -23,11 +22,29 @@ namespace No3.Solution.Tests
         [Test]
         public void Test_AverageByMedian()
         {
-            Calculator calculator = new Calculator();
-
             double expected = 8.0;
 
-            double actual = calculator.CalculateAverage(values, AveragingMethod.Median);
+            double actual = values.CalculateMedianAverage();
+
+            Assert.AreEqual(expected, actual, 0.000001);
+        }
+
+        [Test]
+        public void TestOther_AverageByMean()
+        {
+            double expected = 8.3636363;
+
+            double actual = values.CalculateMeanAverageOther();
+
+            Assert.AreEqual(expected, actual, 0.000001);
+        }
+
+        [Test]
+        public void TestOther_AverageByMedian()
+        {
+            double expected = 8.0;
+
+            double actual = values.CalculateMedianAverageOther();
 
             Assert.AreEqual(expected, actual, 0.000001);
         }
