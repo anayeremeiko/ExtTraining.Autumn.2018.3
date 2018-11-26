@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace No3.Solution
 {
+    /*
+     * Метод CalculateAverage принимает последовательность чисел и стратегию нахождения среднего арифметического.
+     */
     public class Calculator
     {
-        public double CalculateAverage(List<double> values, IAverage averagingMethod)
+        public double CalculateAverage(List<double> values, Func<List<double>, double> averagingMethod)
         {
             if (values == null)
             {
@@ -20,7 +23,17 @@ namespace No3.Solution
                 throw new ArgumentNullException($"{nameof(averagingMethod)} need to be not null.");
             }
 
-            return averagingMethod.Average(values);
+            return averagingMethod.Invoke(values);
+        }
+
+        public double CalculateAverage(List<double> values, IAverage averagingMethod)
+        {
+            if (averagingMethod == null)
+            {
+                throw new ArgumentNullException($"{nameof(averagingMethod)} need to be not null.");
+            }
+
+            return CalculateAverage(values, averagingMethod.Average);
         }
     }
 }
