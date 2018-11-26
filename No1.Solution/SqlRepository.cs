@@ -1,6 +1,4 @@
-﻿using No1.Solution;
-
-namespace No1
+﻿namespace No1.Solution
 {
     public class SqlRepository : IRepository
     {

@@ -1,5 +1,4 @@
-﻿using No1.Solution;
-using System;
+﻿using System;
 using System.Linq;
 
 namespace No1.Solution
