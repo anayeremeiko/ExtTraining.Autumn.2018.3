@@ -46,10 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FirstMethodTest\Mean.cs" />
+    <Compile Include="FirstMethodTest\Median.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecondMethodTest\Mean.cs" />
+    <Compile Include="SecondMethodTest\Median.cs" />
+    <Compile Include="SecondMethodTest\SecondMethodTest.cs" />
     <Compile Include="TestCalculator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FirstMethodTest\FirstMethod.Test.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +68,7 @@
       <Name>No3</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -40,7 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomPasswordValidator.cs" />
+    <Compile Include="IPasswordRepository.cs" />
+    <Compile Include="IPasswordValidator.cs" />
+    <Compile Include="PasswordCheckerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TextFile.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
