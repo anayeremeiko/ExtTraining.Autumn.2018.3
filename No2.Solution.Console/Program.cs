@@ -17,6 +17,7 @@ namespace No2.Solution.Console
             Thread.Sleep(500);
             stock.Market();
             Thread.Sleep(500);
+            broker.StopTrade();
             stock.Market();
 
             System.Console.ReadLine();
