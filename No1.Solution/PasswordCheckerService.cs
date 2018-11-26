@@ -8,29 +8,17 @@ namespace No1.Solution
 {
     /*
      * Проблема использования различных репозиториев решается введением интерфейса IRepository
-     * Для использования различной логики верификации можно воспользоваться как реализацией интерфейса IChecker
-     * так и делегатом Func<string, (bool, string)>. В конструктор передается стратегия валидации.
+     * Для использования различной логики верификации можно воспользоваться реализацией интерфейса IChecker. В конструктор передается стратегия валидации.
      */
     public class PasswordCheckerService
     {
         private readonly IRepository repository;
-        private Func<string, (bool, string)> checker;
-
-        public PasswordCheckerService(IRepository repo, Func<string, (bool, string)> checker)
-        {
-            this.checker = checker ?? throw new ArgumentNullException($"{nameof(checker)} need to be not null.");
-            repository = repo ?? throw new ArgumentNullException($"{nameof(repo)} need to be not null.");
-        }
+        private IChecker checker;
 
         public PasswordCheckerService(IRepository repo, IChecker checker)
         {
-            if (checker == null)
-            {
-                throw new ArgumentNullException($"{nameof(checker)} need to be not null.");
-            }
-
             repository = repo ?? throw new ArgumentNullException($"{nameof(repo)} need to be not null.");
-            this.checker = checker.Check;
+            this.checker = checker ?? throw new ArgumentNullException($"{nameof(checker)} need to be not null.");
         }
 
         public (bool, string) VerifyPassword(string password)
@@ -41,7 +29,7 @@ namespace No1.Solution
             }
 
 
-            (bool suitable, string answer) = checker.Invoke(password);
+            bool suitable = checker.Check(password);
 
             if (suitable)
             {
@@ -49,7 +37,7 @@ namespace No1.Solution
                 return (true, "Password is Ok. User was created");
             }
 
-            return (suitable, answer);
+            return (suitable, "Password isn't suitable");
 
         }
     }

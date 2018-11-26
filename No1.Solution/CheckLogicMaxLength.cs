@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace No1.Solution
 {
-    public class CheckLogicMaxLength
+    public class CheckLogicMaxLength : IChecker
     {
         private int boundary;
         public CheckLogicMaxLength(int boundary)
@@ -14,6 +14,6 @@ namespace No1.Solution
             this.boundary = boundary;
         }
 
-        public (bool, string) Check(string password) => password.Length >= boundary ? (false, $"{password} length too long") : (true, "Password is OK.");
+        public bool Check(string password) => password.Length < boundary;
     }
 }

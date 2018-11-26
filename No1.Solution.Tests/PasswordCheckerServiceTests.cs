@@ -24,22 +24,16 @@ namespace No1.Solution.Tests
         }
 
         [Test]
-        public void PasswordCheckerService_NullDelegate_ThrowArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() => new PasswordCheckerService(new SqlRepository(), (Func<string, (bool, string)>) null));
-        }
-
-        [Test]
         public void PasswordCheckerService_Success()
         {
-            var checker = new Func<string, (bool, string)>(new CheckLogicEmpty().Check); 
-            checker += new CheckLogicMinLength(7).Check;
-            checker += new CheckLogicMaxLength(15).Check;
-            checker += new CheckLogicContainLetter().Check;
-            checker += new CheckLogicContainNumber().Check;
-            var service = new PasswordCheckerService(new SqlRepository(), checker);
+            IChecker[] checker =
+            {
+                new CheckLogicEmpty(), new CheckLogicMinLength(6), new CheckLogicMaxLength(15),
+                new CheckLogicContainLetter(), new CheckLogicContainNumber()
+            };
+            var service = new PasswordCheckerService(new SqlRepository(), new CheckerAdapter(checker));
             var expected = (true, "Password is Ok. User was created");
-            var actual = service.VerifyPassword("test1 password");
+            var actual = service.VerifyPassword("password1");
             Assert.AreEqual(expected.Item1, actual.Item1);
             Assert.AreEqual(expected.Item2, actual.Item2);
         }
@@ -50,12 +44,12 @@ namespace No1.Solution.Tests
         [TestCase("12345689")]
         public void PasswordCheckerService_False(string password)
         {
-            var checker = new Func<string, (bool, string)>(new CheckLogicEmpty().Check);
-            checker += new CheckLogicMinLength(7).Check;
-            checker += new CheckLogicMaxLength(15).Check;
-            checker += new CheckLogicContainLetter().Check;
-            checker += new CheckLogicContainNumber().Check;
-            var service = new PasswordCheckerService(new SqlRepository(), checker);
+            IChecker[] checker =
+            {
+                new CheckLogicEmpty(), new CheckLogicMinLength(7), new CheckLogicMaxLength(15),
+                new CheckLogicContainLetter(), new CheckLogicContainNumber()
+            };
+            var service = new PasswordCheckerService(new SqlRepository(), new CheckerAdapter(checker));
             var expected = (false, "");
             var actual = service.VerifyPassword(password);
             Assert.AreEqual(expected.Item1, actual.Item1);

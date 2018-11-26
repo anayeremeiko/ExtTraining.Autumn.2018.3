@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheckerAdapter.cs" />
     <Compile Include="CheckLogicContainLetter.cs" />
     <Compile Include="CheckLogicContainNumber.cs" />
     <Compile Include="CheckLogicEmpty.cs" />

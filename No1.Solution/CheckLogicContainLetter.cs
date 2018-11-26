@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace No1.Solution
 {
-    public class CheckLogicContainLetter
+    public class CheckLogicContainLetter : IChecker
     {
-        public (bool, string) Check(string password) => !password.Any(char.IsLetter) ? (false, $"{password} hasn't alphanumerical chars") : (true, "Password is OK.");
+        public bool Check(string password) => password.Any(char.IsLetter);
     }
 }

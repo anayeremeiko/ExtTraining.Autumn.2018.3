@@ -14,7 +14,7 @@ namespace No1.Solution
             this.boundary = boundary;
         }
 
-        public (bool, string) Check(string password) =>
-            password.Length <= boundary ? (false, $"{password} length too short") : (true, "Password is OK.");
+        public bool Check(string password) =>
+            password.Length > boundary;
     }
 }
