@@ -40,14 +40,17 @@ namespace No1.Solution
                 throw new ArgumentException($"{password} is null arg");
             }
 
+
             (bool suitable, string answer) = checker.Invoke(password);
+
             if (suitable)
             {
                 repository.Create(password);
                 return (true, "Password is Ok. User was created");
             }
-            
+
             return (suitable, answer);
+
         }
     }
 }

@@ -20,7 +20,7 @@ namespace No1.Solution.Tests
         [Test]
         public void PasswordCheckerService_NullRepository_ThrowArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => new PasswordCheckerService(null, new CheckLogic()));
+            Assert.Throws<ArgumentNullException>(() => new PasswordCheckerService(null, new CheckLogicEmpty()));
         }
 
         [Test]
@@ -32,7 +32,12 @@ namespace No1.Solution.Tests
         [Test]
         public void PasswordCheckerService_Success()
         {
-            var service = new PasswordCheckerService(new SqlRepository(), new CheckLogic());
+            var checker = new Func<string, (bool, string)>(new CheckLogicEmpty().Check); 
+            checker += new CheckLogicMinLength(7).Check;
+            checker += new CheckLogicMaxLength(15).Check;
+            checker += new CheckLogicContainLetter().Check;
+            checker += new CheckLogicContainNumber().Check;
+            var service = new PasswordCheckerService(new SqlRepository(), checker);
             var expected = (true, "Password is Ok. User was created");
             var actual = service.VerifyPassword("test1 password");
             Assert.AreEqual(expected.Item1, actual.Item1);
@@ -45,7 +50,12 @@ namespace No1.Solution.Tests
         [TestCase("12345689")]
         public void PasswordCheckerService_False(string password)
         {
-            var service = new PasswordCheckerService(new SqlRepository(), new CheckLogic());
+            var checker = new Func<string, (bool, string)>(new CheckLogicEmpty().Check);
+            checker += new CheckLogicMinLength(7).Check;
+            checker += new CheckLogicMaxLength(15).Check;
+            checker += new CheckLogicContainLetter().Check;
+            checker += new CheckLogicContainNumber().Check;
+            var service = new PasswordCheckerService(new SqlRepository(), checker);
             var expected = (false, "");
             var actual = service.VerifyPassword(password);
             Assert.AreEqual(expected.Item1, actual.Item1);

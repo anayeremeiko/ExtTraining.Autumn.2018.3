@@ -44,7 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CheckLogic.cs" />
+    <Compile Include="CheckLogicContainLetter.cs" />
+    <Compile Include="CheckLogicContainNumber.cs" />
+    <Compile Include="CheckLogicEmpty.cs" />
+    <Compile Include="CheckLogicMinLength.cs" />
+    <Compile Include="CheckLogicMaxLength.cs" />
     <Compile Include="IChecker.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="PasswordCheckerService.cs" />
